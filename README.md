@@ -3,6 +3,8 @@ Loggly plugin for Fluentd
 With fluent-plugin-loggly you will be able to use the service loggly.com as output for you fluentd logs.
 
 # Getting Started
+* Install fluentd http://fluentd.org
+* gem install fluent-plugin-loggly
 * Make sure you have an account at loggly.com.
 * Create a input.
 * Choose service type: HTTP
@@ -18,4 +20,7 @@ Setup the loggly output:
       loggly_url https://logs.loggly.com/inputs/xxx-xxxx-xxxx-xxxxx-xxxxxxxxxx
     </source>
 ~~~~~
+
+# TODO
+* TCP support
 
