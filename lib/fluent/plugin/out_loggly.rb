@@ -32,9 +32,6 @@ class LogglyOutput < Fluent::Output
 
   def start
     super
-    require "net/https"
-    require "uri"
-    require "json"
     require 'net/http/persistent'
     @uri = URI @loggly_url
     @http = Net::HTTP::Persistent.new 'fluentd-plugin-loggly'
