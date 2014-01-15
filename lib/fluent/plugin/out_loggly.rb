@@ -52,7 +52,7 @@ class LogglyOutput < Fluent::Output
       begin
         response = @http.request @uri, post
         $log.debug "HTTP Response code #{response.code}"
-        $log.error response.message if response.code != "200"
+        $log.error response.body if response.code != "200"
       rescue
         $log.error "Error connecting to loggly verify the url #{@loggly_url}"
       end
