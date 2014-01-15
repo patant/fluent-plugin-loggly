@@ -36,7 +36,6 @@ class LogglyOutput < Fluent::Output
     @uri = URI @loggly_url
     @http = Net::HTTP::Persistent.new 'fluentd-plugin-loggly'
     @http.headers['Content-Type'] = 'application/json'
-    @post = Net::HTTP::Post.new @uri.path
   end
 
   def shutdown
@@ -48,11 +47,12 @@ class LogglyOutput < Fluent::Output
     es.each {|time,record|
       record_json = record.to_json
       $log.debug "Record sent #{record_json}"
-      @post.body = record_json
+      post = Net::HTTP::Post.new @uri.path
+      post.body = record_json
       begin
-        response = @http.request @uri, @post
+        response = @http.request @uri, post
         $log.debug "HTTP Response code #{response.code}"
-        $log.error response.message if response.code != "200"
+        $log.error response.body if response.code != "200"
       rescue
         $log.error "Error connecting to loggly verify the url #{@loggly_url}"
       end
