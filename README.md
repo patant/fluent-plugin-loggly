@@ -1,4 +1,4 @@
-Loggly plugin for Fluentd
+Loggly plugin for [Fluentd](http://fluentd.org)
 =============
 With fluent-plugin-loggly you will be able to use the service loggly.com as output for you fluentd logs.
 
