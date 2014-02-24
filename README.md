@@ -21,7 +21,7 @@ Setup the loggly output:
     <match your_match>
       type loggly
       loggly_url https://logs.loggly.com/inputs/xxx-xxxx-xxxx-xxxxx-xxxxxxxxxx
-    </source>
+    </match>
 ~~~~~
 
 # TODO
