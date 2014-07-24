@@ -1,8 +1,22 @@
-Loggly plugin for [Fluentd](http://fluentd.org)
+Loggly plugin for [Fluentd](http://www.fluentd.org)
 =============
-With fluent-plugin-loggly you will be able to use the service loggly.com as output for you fluentd logs.
+With fluent-plugin-loggly you will be able to use [Loggly](http://loggly.com) as output the logs you collect with Fluentd.
 
-# Getting Started
+## Getting Started for Gen2 ([Read here for the difference between Gen1 and Gen2](https://www.loggly.com/docs/gen2-overview-for-gen1-users/))
+* Install [Fluentd](http://www.fluentd.org/download)
+* gem install fluent-plugin-loggly
+* Make sure you have an account with Loggly.
+* Configure Fluentd as below:
+~~~~~
+    <match your_match>
+      type loggly
+      loggly_url https://logs-01.loggly.com/inputs/xxx-xxxx-xxxx-xxxxx-xxxxxxxxxx
+    </match>
+~~~~~
+    The `xxx-xxxx...` is your Loggly access token.
+
+## Getting Started for Gen 1
+
 * Install fluentd http://fluentd.org
 * gem install fluent-plugin-loggly
 * Make sure you have an account at loggly.com.
@@ -12,17 +26,7 @@ With fluent-plugin-loggly you will be able to use the service loggly.com as outp
 * Get the url that could by used to do HTTPS POST (this will be used for configuration of the plugin).
   It should be something like https://logs.loggly.com/inputs/xxx-xxxx-xxxx-xxxxx-xxxxxxxxxx
 
+
 ## Parameters
-**loggly_url** the url to your loggly input (string)  
+**loggly_url** the url to your loggly input (string).
 
-Setup the loggly output:
-
-~~~~~
-    <match your_match>
-      type loggly
-      loggly_url https://logs.loggly.com/inputs/xxx-xxxx-xxxx-xxxxx-xxxxxxxxxx
-    </match>
-~~~~~
-
-# TODO
-?
