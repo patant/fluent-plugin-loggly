@@ -13,6 +13,13 @@ With fluent-plugin-loggly you will be able to use [Loggly](http://loggly.com) as
       loggly_url https://logs-01.loggly.com/inputs/xxx-xxxx-xxxx-xxxxx-xxxxxxxxxx
     </match>
 ~~~~~
+    or if you want to use buffered plugin:
+~~~~~
+    <match your_match>
+      type loggly_buffered
+      loggly_url https://logs-01.loggly.com/inputs/xxx-xxxx-xxxx-xxxxx-xxxxxxxxxx
+    </match>
+~~~~~
     The `xxx-xxxx...` is your Loggly access token.
 
 ## Getting Started for Gen 1
@@ -29,4 +36,3 @@ With fluent-plugin-loggly you will be able to use [Loggly](http://loggly.com) as
 
 ## Parameters
 **loggly_url** the url to your loggly input (string).
-
