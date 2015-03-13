@@ -17,13 +17,15 @@ With fluent-plugin-loggly you will be able to use [Loggly](http://loggly.com) as
 ~~~~~
     <match your_match>
       type loggly_buffered
-      loggly_url https://logs-01.loggly.com/inputs/xxx-xxxx-xxxx-xxxxx-xxxxxxxxxx
+      loggly_url https://logs-01.loggly.com/bulk/xxx-xxxx-xxxx-xxxxx-xxxxxxxxxx
       output_include_time true  # add 'timestamp' record into log. (default: true)
       buffer_type    file
       buffer_path    /path/to/buffer/file
       flush_interval 10s
     </match>
 ~~~~~
+    Note that buffered plugin uses bulk import to improve performance, so make sure to set Bulk endpoint to loggly_url.
+
     The `xxx-xxxx...` is your Loggly access token.
 
 ## Getting Started for Gen 1

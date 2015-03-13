@@ -40,7 +40,7 @@ class LogglyOutputBuffred < Fluent::BufferedOutput
     require 'net/http/persistent'
     @uri = URI @loggly_url
     @http = Net::HTTP::Persistent.new 'fluentd-plugin-loggly'
-    @http.headers['Content-Type'] = 'application/json'
+    @http.headers['Content-Type'] = 'text'
   end
 
   def shutdown
@@ -52,19 +52,20 @@ class LogglyOutputBuffred < Fluent::BufferedOutput
   end
 
   def write(chunk)
+    records = []
     chunk.msgpack_each {|tag,time,record|
       record['timestamp'] = Time.at(time).iso8601 if @output_include_time
-      record_json = record.to_json
-      $log.debug "Record sent #{record_json}"
-      post = Net::HTTP::Post.new @uri.path
-      post.body = record_json
-      begin
-        response = @http.request @uri, post
-        $log.debug "HTTP Response code #{response.code}"
-        $log.error response.body if response.code != "200"
-      rescue
-        $log.error "Error connecting to loggly verify the url #{@loggly_url}"
-      end
+      records.push(record.to_json)
     }
+    $log.debug "#{records.length} records sent"
+    post = Net::HTTP::Post.new @uri.path
+    post.body = records.join("\n")
+    begin
+      response = @http.request @uri, post
+      $log.debug "HTTP Response code #{response.code}"
+      $log.error response.body if response.code != "200"
+    rescue
+      $log.error "Error connecting to loggly verify the url #{@loggly_url}"
+    end
   end
 end
