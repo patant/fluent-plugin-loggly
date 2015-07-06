@@ -54,7 +54,7 @@ class LogglyOutputBuffred < Fluent::BufferedOutput
   def write(chunk)
     records = []
     chunk.msgpack_each {|tag,time,record|
-      record['timestamp'] = Time.at(time).iso8601 if @output_include_time
+      record['timestamp'] ||= Time.at(time).iso8601 if @output_include_time
       records.push(record.to_json)
     }
     $log.debug "#{records.length} records sent"
