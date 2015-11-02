@@ -1,6 +1,6 @@
 =begin
-  
-  Copyright (C) 2012 Patrik Antonsson 
+
+  Copyright (C) 2012 Patrik Antonsson
 
   Licensed to the Apache Software Foundation (ASF) under one
   or more contributor license agreements.  See the NOTICE file
@@ -45,7 +45,7 @@ class LogglyOutput < Fluent::Output
   def emit(tag, es, chain)
     chain.next
     es.each {|time,record|
-      record_json = record.to_json
+      record_json = Yajl::Encoder.encode(record)
       $log.debug "Record sent #{record_json}"
       post = Net::HTTP::Post.new @uri.path
       post.body = record_json

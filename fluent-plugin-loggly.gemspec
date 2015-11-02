@@ -18,4 +18,5 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.required_ruby_version = Gem::Requirement.new(">= 1.9.3")
   s.add_dependency('net-http-persistent', '>= 2.7')
+  s.add_dependency('yajl-ruby', '>= 1.0')
 end
