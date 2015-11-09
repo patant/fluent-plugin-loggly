@@ -55,7 +55,7 @@ class LogglyOutputBuffred < Fluent::BufferedOutput
     records = []
     chunk.msgpack_each {|tag,time,record|
       record['timestamp'] ||= Time.at(time).iso8601 if @output_include_time
-      records.push(record.to_json)
+      records.push(Yajl::Encoder.encode(record))
     }
     $log.debug "#{records.length} records sent"
     post = Net::HTTP::Post.new @uri.path
