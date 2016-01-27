@@ -9,6 +9,7 @@ Gem::Specification.new do |s|
   s.homepage    = "https://github.com/patant/fluent-plugin-loggly"
   s.summary     = %q{Fluentd plugin for output to loggly}
   s.description = %q{Fluentd pluging (fluentd.org) for output to loggly (loggly.com)}
+  s.license     = "Apache-2.0"
 
   s.rubyforge_project = "fluent-plugin-loggly"
 
