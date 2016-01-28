@@ -25,6 +25,7 @@ class LogglyOutputBuffred < Fluent::BufferedOutput
   Fluent::Plugin.register_output('loggly_buffered', self)
   config_param :loggly_url, :string, :default => nil
   config_param :output_include_time, :bool, :default => true  # Recommended
+  config_set_default :buffer_chunk_limit, 5*1024*1024  # overwrite default buffer_chunk_limit
 
   unless method_defined?(:log)
     define_method("log") { $log }
