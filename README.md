@@ -1,10 +1,13 @@
 Loggly plugin for [Fluentd](http://www.fluentd.org)
 =============
+
+[![Gem](https://img.shields.io/gem/dt/fluent-plugin-loggly.svg)](https://rubygems.org/gems/fluent-plugin-loggly)
+
 With fluent-plugin-loggly you will be able to use [Loggly](http://loggly.com) as output the logs you collect with Fluentd.
 
 ## Getting Started
 * Install [Fluentd](http://www.fluentd.org/download)
-* gem install fluent-plugin-loggly
+* `gem install fluent-plugin-loggly` or if you are using the agent `td-agent-gem install fluent-plugin-loggly`
 * Make sure you have an account with Loggly.
 * Configure Fluentd as below:
 ~~~~~
