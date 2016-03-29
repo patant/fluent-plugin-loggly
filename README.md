@@ -22,6 +22,7 @@ or if you want to use buffered plugin:
       type loggly_buffered
       loggly_url https://logs-01.loggly.com/bulk/xxx-xxxx-xxxx-xxxxx-xxxxxxxxxx
       output_include_time true  # add 'timestamp' record into log. (default: true)
+      time_precision_digits 3 # Include 3 digits of sub-second precision (default: 0)
       buffer_type    file
       buffer_path    /path/to/buffer/file
       flush_interval 10s
