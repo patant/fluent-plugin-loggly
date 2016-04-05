@@ -24,6 +24,7 @@
 class LogglyOutput < Fluent::Output
   Fluent::Plugin.register_output('loggly', self)
   config_param :loggly_url, :string, :default => nil
+  config_param :output_include_time, :bool, :default => true  # Recommended
 
   def configure(conf)
     super
@@ -45,6 +46,7 @@ class LogglyOutput < Fluent::Output
   def emit(tag, es, chain)
     chain.next
     es.each {|time,record|
+      record['timestamp'] ||= Time.at(time).iso8601 if @output_include_time
       record_json = Yajl::Encoder.encode(record)
       $log.debug "Record sent #{record_json}"
       post = Net::HTTP::Post.new @uri.path
