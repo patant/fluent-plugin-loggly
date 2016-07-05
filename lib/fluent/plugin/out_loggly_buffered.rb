@@ -25,6 +25,7 @@ class LogglyOutputBuffred < Fluent::BufferedOutput
   Fluent::Plugin.register_output('loggly_buffered', self)
   config_param :loggly_url, :string, :default => nil
   config_param :output_include_time, :bool, :default => true  # Recommended
+  config_param :time_precision_digits, :integer, :default => 0
 
   unless method_defined?(:log)
     define_method("log") { $log }
@@ -48,13 +49,17 @@ class LogglyOutputBuffred < Fluent::BufferedOutput
   end
 
   def format(tag, time, record)
-    [tag, time, record].to_msgpack
+    if time.is_a?(Integer)
+      [tag, time, record].to_msgpack
+    else
+      Fluent::Engine.msgpack_factory.packer.write([tag, time, record]).to_s
+    end
   end
 
   def write(chunk)
     records = []
     chunk.msgpack_each {|tag,time,record|
-      record['timestamp'] ||= Time.at(time).iso8601 if @output_include_time
+      record['timestamp'] ||= Time.at(time).iso8601(@time_precision_digits) if @output_include_time
       records.push(Yajl::Encoder.encode(record))
     }
     $log.debug "#{records.length} records sent"
