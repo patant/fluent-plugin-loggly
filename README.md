@@ -2,6 +2,7 @@ Loggly plugin for [Fluentd](http://www.fluentd.org)
 =============
 
 [![Gem](https://img.shields.io/gem/dt/fluent-plugin-loggly.svg)](https://rubygems.org/gems/fluent-plugin-loggly)
+[![Gem Version](https://badge.fury.io/rb/fluent-plugin-loggly.svg)](https://badge.fury.io/rb/fluent-plugin-loggly)
 
 With fluent-plugin-loggly you will be able to use [Loggly](http://loggly.com) as output the logs you collect with Fluentd.
 
