@@ -20,4 +20,9 @@ Gem::Specification.new do |s|
   s.required_ruby_version = Gem::Requirement.new(">= 1.9.3")
   s.add_dependency('net-http-persistent', '~> 2.7')
   s.add_dependency('yajl-ruby', '~> 1.0')
+  s.add_runtime_dependency('fluentd')
+
+  s.add_development_dependency('bundler')
+  s.add_development_dependency('rake', '>= 10.0')
+  s.add_development_dependency('test-unit', '~> 3.2.0')
 end
