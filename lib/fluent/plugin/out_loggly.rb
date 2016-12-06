@@ -21,7 +21,7 @@
 
 =end
 
-class LogglyOutput < Fluent::Output
+class Fluent::LogglyOutput < Fluent::Output
   Fluent::Plugin.register_output('loggly', self)
   config_param :loggly_url, :string, :default => nil
 

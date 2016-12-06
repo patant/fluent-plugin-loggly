@@ -12,7 +12,7 @@ class LogglyOutputBufferedTest < Test::Unit::TestCase
   end
 
   def create_driver(conf = CONFIG, tag = 'test')
-    Fluent::Test::OutputTestDriver.new(LogglyOutputBuffred, tag).configure(conf)
+    Fluent::Test::OutputTestDriver.new(Fluent::LogglyOutputBuffered, tag).configure(conf)
   end
 
   def test_configure

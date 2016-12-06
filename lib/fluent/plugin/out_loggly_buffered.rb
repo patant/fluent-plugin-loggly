@@ -21,7 +21,7 @@
 
 =end
 
-class LogglyOutputBuffred < Fluent::BufferedOutput
+class Fluent::LogglyOutputBuffered < Fluent::BufferedOutput
   Fluent::Plugin.register_output('loggly_buffered', self)
   config_param :loggly_url, :string, :default => nil
   config_param :output_include_time, :bool, :default => true  # Recommended
