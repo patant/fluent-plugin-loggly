@@ -60,7 +60,11 @@ class LogglyOutputBuffred < Fluent::BufferedOutput
     records = []
     chunk.msgpack_each {|tag,time,record|
       record['timestamp'] ||= Time.at(time).iso8601(@time_precision_digits) if @output_include_time
-      records.push(Yajl::Encoder.encode(record))
+      begin
+        records.push(Yajl::Encoder.encode(record))
+      rescue StandardError => e
+        $log.error "Exception while encoding #{record}: #{e}"
+      end
     }
     $log.debug "#{records.length} records sent"
     post = Net::HTTP::Post.new @uri.path
