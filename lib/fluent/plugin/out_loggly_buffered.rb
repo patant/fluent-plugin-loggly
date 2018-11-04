@@ -72,9 +72,12 @@ class LogglyOutputBuffred < Fluent::BufferedOutput
     begin
       response = @http.request @uri, post
       $log.debug "HTTP Response code #{response.code}"
-      $log.error response.body if response.code != "200"
-    rescue
-      $log.error "Error connecting to loggly verify the url #{@loggly_url}"
+      # Things the server reports as a client error should not be retried
+      if response.is_a?(Net::HTTPClientError)
+        raise Fluent::UnrecoverableError, response.body
+      elsif !response.is_a?(Net::HTTPSuccess)
+        raise response
+      end
     end
   end
 end
