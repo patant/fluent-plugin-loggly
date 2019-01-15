@@ -25,4 +25,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency('bundler')
   s.add_development_dependency('rake', '>= 10.0')
   s.add_development_dependency('test-unit', '~> 3.2.0')
+  s.add_development_dependency('webmock', '~> 3.5.0')
 end
