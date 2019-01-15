@@ -1,0 +1,7 @@
+require 'test/unit'
+require 'webmock/test_unit'
+require 'net/http'
+require 'cgi'
+require 'fluent/test'
+require 'fluent/plugin/out_loggly'
+require 'fluent/plugin/out_loggly_buffered'

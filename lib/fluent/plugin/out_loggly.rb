@@ -21,13 +21,17 @@
 
 =end
 
-class LogglyOutput < Fluent::Output
+class Fluent::LogglyOutput < Fluent::Output
   Fluent::Plugin.register_output('loggly', self)
   config_param :loggly_url, :string, :default => nil
 
+  unless method_defined?(:log)
+    define_method("log") { $log }
+  end
+
   def configure(conf)
     super
-    $log.debug "Loggly url #{@loggly_url}"
+    log.debug "Loggly url #{@loggly_url}"
   end
 
   def start
@@ -46,15 +50,15 @@ class LogglyOutput < Fluent::Output
     chain.next
     es.each {|time,record|
       record_json = Yajl::Encoder.encode(record)
-      $log.debug "Record sent #{record_json}"
+      log.debug "Record sent #{record_json}"
       post = Net::HTTP::Post.new @uri.path
       post.body = record_json
       begin
         response = @http.request @uri, post
-        $log.debug "HTTP Response code #{response.code}"
-        $log.error response.body if response.code != "200"
+        log.debug "HTTP Response code #{response.code}"
+        log.error response.body if response.code != "200"
       rescue
-        $log.error "Error connecting to loggly verify the url #{@loggly_url}"
+        log.error "Error connecting to loggly verify the url #{@loggly_url}"
       end
     }
   end

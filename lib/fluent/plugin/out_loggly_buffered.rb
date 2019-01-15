@@ -21,7 +21,7 @@
 
 =end
 
-class LogglyOutputBuffred < Fluent::BufferedOutput
+class Fluent::LogglyOutputBuffered < Fluent::BufferedOutput
   Fluent::Plugin.register_output('loggly_buffered', self)
   config_param :loggly_url, :string, :default => nil
   config_param :output_include_time, :bool, :default => true  # Recommended
@@ -33,7 +33,7 @@ class LogglyOutputBuffred < Fluent::BufferedOutput
 
   def configure(conf)
     super
-    $log.debug "Loggly url #{@loggly_url}"
+    log.debug "Loggly url #{@loggly_url}"
   end
 
   def start
@@ -62,15 +62,15 @@ class LogglyOutputBuffred < Fluent::BufferedOutput
       record['timestamp'] ||= Time.at(time).iso8601(@time_precision_digits) if @output_include_time
       records.push(Yajl::Encoder.encode(record))
     }
-    $log.debug "#{records.length} records sent"
+    log.debug "#{records.length} records sent"
     post = Net::HTTP::Post.new @uri.path
     post.body = records.join("\n")
     begin
       response = @http.request @uri, post
-      $log.debug "HTTP Response code #{response.code}"
-      $log.error response.body if response.code != "200"
+      log.debug "HTTP Response code #{response.code}"
+      log.error response.body if response.code != "200"
     rescue
-      $log.error "Error connecting to loggly verify the url #{@loggly_url}"
+      log.error "Error connecting to loggly verify the url #{@loggly_url}"
     end
   end
 end
